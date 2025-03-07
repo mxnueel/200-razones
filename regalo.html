@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>200 Razones Para Estar Contigo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f2, #ffccdd);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            color: #d63384;
+            text-shadow: 3px 3px 12px rgba(255, 105, 180, 0.7);
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .photo-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 5px solid;
+            border-image-source: linear-gradient(45deg, #ff69b4, #ffd700);
+            border-image-slice: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .photo-container:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+        .message {
+            margin-top: 8px;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: #d63384;
+            font-weight: bold;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            text-align: center;
+        }
+        .message.visible {
+            opacity: 1;
+            transform: translateY(10px);
+        }
+        .button {
+            background-color: #d63384;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #ff69b4;
+        }
+        .surprise-message {
+            display: none;
+            font-size: 1.5em;
+            color: #ff69b4;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .surprise-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body onload="showBirthdayMessage()">
+    <h1>200 Razones Para Estar Contigo</h1>
+    <div class="gallery"></div>
+    <button class="button" onclick="showSurpriseMessage()">¡Haz clic aquí para la última razón!</button>
+    <div class="surprise-message" id="surpriseMessage">La única razón para irme... no existe. Siempre quiero estar contigo ❤️</div>
+
+    <script>
+        function showBirthdayMessage() {
+            alert("🎉 ¡Feliz Cumpleaños Mensaaaaaa! 🎂🥰\n\nEres una persona muy especial en mi vida y quiero recordarte lo increíble que eres. Aquí tienes 200 razones por las cuales me gustaria paasar mas tiempo contigo. Y una razon para no hacerlo, mirala al final ❤️");
+        }
+
+        const gallery = document.querySelector('.gallery');
+        const messages = Array.from({length: 200}, (_, i) => `Razón ${i + 1}: Porque eres increíble.`);
+
+        for (let i = 0; i < 200; i++) {
+            const photoContainer = document.createElement('div');
+            photoContainer.classList.add('photo-container');
+            
+            const img = document.createElement('img');
+            img.src = `https://source.unsplash.com/150x150/?love,romantic&sig=${i}`;
+            img.alt = `Foto ${i + 1}`;
+
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.textContent = messages[i];
+
+            photoContainer.appendChild(img);
+            photoContainer.appendChild(message);
+            photoContainer.addEventListener('click', () => {
+                message.classList.toggle('visible');
+            });
+
+            gallery.appendChild(photoContainer);
+        }
+        
+        function showSurpriseMessage() {
+            document.getElementById('surpriseMessage').classList.add('visible');
+        }
+    </script>
+</body>
+</html>
