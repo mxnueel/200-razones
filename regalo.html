@@ -119,8 +119,9 @@
             const photoContainer = document.createElement('div');
             photoContainer.classList.add('photo-container');
             
+            // Aquí se utiliza la ruta relativa a tus imágenes en el repositorio
             const img = document.createElement('img');
-            img.src = `https://source.unsplash.com/150x150/?love,romantic&sig=${i}`;
+            img.src = `./imagenes/${i + 1}.jpg`;  // Ruta a las imágenes del repositorio
             img.alt = `Foto ${i + 1}`;
 
             const message = document.createElement('div');
