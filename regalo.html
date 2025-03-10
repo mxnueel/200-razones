@@ -96,50 +96,102 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
         .surprise-message.visible {
+            display: block;
             opacity: 1;
             transform: translateY(0);
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #d63384;
+            font-weight: bold;
+        }
+        .message {
+            font-size: 1.2em;
+        }
+        .messageAnimation {
+            animation: messageAnimation 3s infinite;
+        }
+        @keyframes messageAnimation {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
     </style>
 </head>
 <body onload="showBirthdayMessage()">
     <h1>200 Razones Para Estar Contigo</h1>
     <div class="gallery"></div>
-    <button class="button" onclick="showSurpriseMessage()">¡Haz clic aquí para la última razón!</button>
+    <button class="button" onclick="showSurpriseMessage()">¡Una Razón Para Irme!</button>
     <div class="surprise-message" id="surpriseMessage">La única razón para irme... no existe. Siempre quiero estar contigo ❤️</div>
+    <div class="footer">¡Gracias por ser tan increíble! 💖</div>
+
+    <!-- Agregar música de fondo -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
 
     <script>
+        // Función que muestra un mensaje especial al cargar la página
         function showBirthdayMessage() {
-            alert("🎉 ¡Feliz Cumpleaños Mensaaaaaa! 🎂🥰\n\nEres una persona muy especial en mi vida y quiero recordarte lo increíble que eres. Aquí tienes 200 razones por las cuales me gustaria paasar mas tiempo contigo. Y una razon para no hacerlo, mirala al final ❤️");
+            alert("🎉 ¡Feliz Cumpleaños Mensaaaaaa! 🎂🥰\n\nEres una persona muy especial en mi vida y quiero recordarte lo increíble que eres. Aquí tienes 200 razones por las cuales me gustaría pasar más tiempo contigo. Y una razón para no hacerlo, mírala al final ❤️");
         }
 
-        const gallery = document.querySelector('.gallery');
-        const messages = Array.from({length: 200}, (_, i) => `Razón ${i + 1}: Porque eres increíble.`);
-
-        for (let i = 0; i < 200; i++) {
-            const photoContainer = document.createElement('div');
-            photoContainer.classList.add('photo-container');
-            
-            // Aquí se utiliza la ruta relativa a tus imágenes en el repositorio
-            const img = document.createElement('img');
-            img.src = `./imagenes/${i + 1}.jpg`;  // Ruta a las imágenes del repositorio
-            img.alt = `Foto ${i + 1}`;
-
-            const message = document.createElement('div');
-            message.classList.add('message');
-            message.textContent = messages[i];
-
-            photoContainer.appendChild(img);
-            photoContainer.appendChild(message);
-            photoContainer.addEventListener('click', () => {
-                message.classList.toggle('visible');
-            });
-
-            gallery.appendChild(photoContainer);
-        }
-        
+        // Función para mostrar el mensaje al hacer clic en el botón
         function showSurpriseMessage() {
-            document.getElementById('surpriseMessage').classList.add('visible');
+            const surpriseMessage = document.getElementById('surpriseMessage');
+            surpriseMessage.classList.add('visible');
         }
+
+        // Galería de mensajes y fotos
+        const gallery = document.querySelector('.gallery');
+        const messages = [
+            "Tu sonrisa", "Tu cabello", "Tu risa", "Tu cuerpo", "Tus labios", "Tu humor", "Tus ojos",
+            "La manera en que eres tú", "Tu confianza", "Hermosa", "Preciosa", "Bonita", "Divertida", "Inteligente",
+            "Tu lealtad", "Tu pasión", "Tu fortaleza", "Tu honestidad", "Tu energía", "Tu voz", "El apoyo que me brindas",
+            "Tu creatividad", "Única", "Tu habilidad para hacerme reír cuando estoy triste", "Tu gran corazón", "Tu calidez",
+            "Tu estilo", "Tu encanto", "Tu energía positiva", "Tu paciencia", "Tu valentía", "Trabajadora", "Tu corazón perdonador",
+            "Tus abrazos cálidos", "Tu cuidado", "Dulce", "Mi motivación", "Tu amor por mi familia", "Tu presencia",
+            "Tu consideración", "Tu amor", "Tu curiosidad", "Tu apreciación", "Tu alma", "Tu picardía", "Tu confianza en mí",
+            "Tu fe", "Tu humildad", "Asombrosa", "Tu lado amoroso", "Tu extroversión", "Tu belleza natural",
+            "Tus ronquidos cuando duermes", "Tu amor por tu familia", "Tu humildad", "Tu lado juguetón", "Recuerdas nuestros buenos momentos",
+            "Tu gusto musical", "Tu confiabilidad", "Tu comprensión", "Tu dedicación a tus metas", "Tu pasión por lo que amas",
+            "Tu calidez", "Tus cumplidos", "Tus pequeñas bromas", "Tu respeto", "Tu encanto", "Tu gracia", "Tu tranquilidad",
+            "Tu atención", "Tus creencias", "No me juzgas", "Nuestra conexión", "Nuestro vínculo", "Tu timidez", "Tu curiosidad",
+            "Tu respeto por ti misma", "Tu crecimiento", "Tu esfuerzo", "Tus besos", "Tu piel", "Tu desinterés", "Tu tontería",
+            "Tu familia", "Tus defectos", "Tu madurez", "Tu responsabilidad", "Tus dientes", "Tus consejos", "Tus modales",
+            "Tu seriedad", "Tu amor", "Linda", "Hiciste que me convirtiera en una mejor persona", "Encantadora", "Tu responsabilidad",
+            "Tu perdón", "Entretenida", "Tu aroma", "Tu aroma natural", "Tu afecto", "Tu perfección", "Tu forma de bailar",
+            "Tu valor", "Haces todo por mí", "Tu cuerpo", "Tu existencia", "Tu dulzura", "Tu valentía", "Tu cariño",
+            "Tu manera de ver la vida", "Tu profundidad", "Tu generosidad", "Tu sensibilidad", "Eres un alma hermosa",
+            "Tu empatía", "Tu sentido del humor", "Tu amor por los animales", "Nuestra historia", "Nosotros", "Eres increíble"
+        ];
+
+        // Crear la galería de imágenes y mensajes
+        function createGallery() {
+            messages.forEach((msg, index) => {
+                const photoContainer = document.createElement('div');
+                photoContainer.classList.add('photo-container');
+
+                const image = document.createElement('img');
+                image.src = `https://placeimg.com/300/200/any?${index}`;
+                photoContainer.appendChild(image);
+
+                const message = document.createElement('div');
+                message.classList.add('message');
+                message.textContent = msg;
+
+                photoContainer.appendChild(message);
+                gallery.appendChild(photoContainer);
+
+                photoContainer.addEventListener('click', () => {
+                    message.classList.toggle('visible');
+                });
+            });
+        }
+
+        createGallery();
     </script>
 </body>
 </html>
