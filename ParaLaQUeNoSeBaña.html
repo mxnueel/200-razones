@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>200 Razones Para Estar Contigo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f2, #ffccdd);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            color: #d63384;
+            text-shadow: 3px 3px 12px rgba(255, 105, 180, 0.7);
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .photo-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 5px solid;
+            border-image-source: linear-gradient(45deg, #ff69b4, #ffd700);
+            border-image-slice: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .photo-container:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+        .message {
+            margin-top: 8px;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: #d63384;
+            font-weight: bold;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            text-align: center;
+        }
+        .message.visible {
+            opacity: 1;
+            transform: translateY(10px);
+        }
+        .button {
+            background-color: #d63384;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #ff69b4;
+        }
+        .surprise-message {
+            display: none;
+            font-size: 1.5em;
+            color: #ff69b4;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .surprise-message.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #d63384;
+            font-weight: bold;
+        }
+        .message {
+            font-size: 1.2em;
+        }
+        .messageAnimation {
+            animation: messageAnimation 3s infinite;
+        }
+        @keyframes messageAnimation {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body onload="showBirthdayMessage()">
+    <h1>200 Razones Para Estar Contigo</h1>
+    <div class="gallery"></div>
+    <button class="button" onclick="showSurpriseMessage()">¡Una Razón Para Irme!</button>
+    <div class="surprise-message" id="surpriseMessage">NO quiero irme, te quiero cada segundo ❤️</div>
+    <div class="footer">¡Tqm Victoria! 💖</div>
+
+    <!-- Agregar música de fondo -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="https://raw.githubusercontent.com/mxnueel/200-razones/main/1.mp3" type="audio/mp3">
+        <source src="https://raw.githubusercontent.com/mxnueel/200-razones/main/2.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+        var audio = document.getElementById('backgroundMusic');
+        
+        // Escuchar cuando una canción se termina
+        audio.onended = function() {
+            // Cambiar a la siguiente canción
+            if (audio.src.includes("1.mp3")) {
+                audio.src = "https://raw.githubusercontent.com/mxnueel/200-razones/main/2.mp3";
+            } else {
+                audio.src = "https://raw.githubusercontent.com/mxnueel/200-razones/main/1.mp3";
+            }
+            // Reproducir la siguiente canción
+            audio.play();
+        };
+    </script>
+
+
+
+    <script>
+        // Función que muestra un mensaje especial al cargar la página
+        function showBirthdayMessage() {
+            alert("🎉 ¡Holaaa Mensaaaaaa! 🎂🥰\n\nEres una persona muy especial en mi vida y quiero recordarte lo increíble que eres. Aquí tienes 200 razones para quererte. Y una razón para irme de tu vida, mírala al final ❤️");
+        }
+
+        // Función para mostrar el mensaje al hacer clic en el botón
+        function showSurpriseMessage() {
+            const surpriseMessage = document.getElementById('surpriseMessage');
+            surpriseMessage.classList.add('visible');
+        }
+
+        // Galería de mensajes y fotos
+        const gallery = document.querySelector('.gallery');
+        const messages = [
+            "Tu sonrisa", "Tu cabello", "Tu risa", "Tu cuerpo", "Tus labios", "Tu humor", "Tus ojos",
+            "La manera en que eres tú", "Tu confianza", "Hermosa", "Preciosa", "Bonita", "Divertida", "Inteligente",
+            "Tu lealtad", "Tu pasión", "Tu fortaleza", "Tu honestidad", "Tu energía", "Tu voz", "El apoyo que me brindas",
+            "Tu creatividad", "Única", "Tu habilidad para hacerme reír cuando estoy triste", "Tu gran corazón", "Tu calidez",
+            "Tu estilo", "Tu encanto", "Tu energía positiva", "Tu paciencia", "Tu valentía", "Trabajadora", "Tu corazón perdonador",
+            "Tus abrazos cálidos", "Tu cuidado", "Dulce", "Mi motivación", "Tu amor por mi familia", "Tu presencia",
+            "Tu consideración", "Tu amor", "Tu curiosidad", "Tu apreciación", "Tu alma", "Tu picardía", "Tu confianza en mí",
+            "Tu fe", "Tu humildad", "Asombrosa", "Tu lado amoroso", "Tu extroversión", "Tu belleza natural",
+            "Tus ronquidos cuando duermes", "Tu amor por tu familia", "Tu humildad", "Tu lado juguetón", "Recuerdas nuestros buenos momentos",
+            "Tu gusto musical", "Tu confiabilidad", "Tu comprensión", "Tu dedicación a tus metas", "Tu pasión por lo que amas",
+            "Tu calidez", "Tus cumplidos", "Tus pequeñas bromas", "Tu respeto", "Tu encanto", "Tu gracia", "Tu tranquilidad",
+            "Tu atención", "Tus creencias", "No me juzgas", "Nuestra conexión", "Nuestro vínculo", "Tu timidez", "Tu curiosidad",
+            "Tu respeto por ti misma", "Tu crecimiento", "Tu esfuerzo", "Tus besos", "Tu piel", "Tu desinterés", "Tu tontería",
+            "Tu familia", "Tus defectos", "Tu madurez", "Tu responsabilidad", "Tus dientes", "Tus consejos", "Tus modales",
+            "Tu seriedad", "Tu amor", "Linda", "Hiciste que me convirtiera en una mejor persona", "Encantadora", "Tu responsabilidad",
+            "Tu perdón", "Entretenida", "Tu aroma", "Tu aroma natural", "Tu afecto", "Tu perfección", "Tu forma de bailar",
+            "Tu valor", "Haces todo por mí", "Tu cuerpo", "Tu existencia", "Tu dulzura", "Tu valentía", "Tu cariño",
+            "Tu manera de ver la vida", "Tu profundidad", "Tu generosidad", "Tu sensibilidad", "Eres un alma hermosa",
+            "Tu empatía", "Tu sentido del humor", "Tu amor por los animales", "Nuestra historia", "Nosotros", "Eres increíble", "Tqm", 
+            "Me haces sentir en paz", "Me entiendes sin necesidad de hablar", "Siempre estás ahí cuando te necesito", "Tu apoyo es mi fuerza",
+            "Te preocupas por mi bienestar", "Compartimos sueños y metas", "Siempre encontramos soluciones juntos", "Nos complementamos perfectamente",
+            "Me inspiras a ser mejor cada día", "Me haces ver el mundo de una manera diferente", "Te aceptas tal como eres, y eso me encanta",
+            "Conoces mis defectos y aún así me amas", "Me haces sentir seguro de mí mismo", "Me haces reír incluso en mis peores días",
+            "Me motivas a seguir adelante cuando quiero rendirme", "Tu honestidad me hace confiar en ti plenamente", "Te importa mi felicidad tanto como la tuya",
+            "Me haces sentir que soy importante para ti", "Valoras las pequeñas cosas que hago por ti", "Siempre me haces sentir querido",
+            "Sabes cómo calmarme cuando estoy ansioso", "Me enseñas a disfrutar de la vida", "Nos apoyamos mutuamente en todo momento",
+            "Nos entendemos sin tener que decir mucho", "Eres mi compañera de vida", "Te preocupas por mis sueños tanto como por los tuyos",
+            "Contigo, todo parece más fácil", "Te esfuerzas por mantener nuestra relación sana", "Tus consejos siempre me dan claridad",
+            "Me haces sentir valioso", "Tu risa me alegra el día", "Compartimos nuestros momentos más íntimos sin miedo", "Tu lealtad es algo que valoro profundamente",
+            "Me haces sentir en casa", "No importa lo que pase, siempre encuentras el lado positivo", "Nuestra conexión es única",
+            "Tu manera de ver la vida me inspira", "Eres mi refugio cuando el mundo es caótico", "Sabes cómo calmar mis miedos",
+            "Tu amor me hace sentir completo", "Tu apoyo es incondicional", "Me haces ser la mejor versión de mí mismo",
+            "Me haces sentir que juntos podemos lograr cualquier cosa", "Tu valentía me empuja a ser más valiente", "Me haces sentir que todo tiene sentido cuando estoy contigo",
+            "Confío en ti plenamente", "Me haces sentir que siempre hay una solución", "Lo que más valoro es la forma en que me entiendes",
+            "Siempre me haces sentir que soy suficiente", "Me haces sentir que nunca estoy solo", "A tu lado me siento libre para ser quien soy",
+            "Me enseñaste a ser más paciente", "Me haces sentir que soy parte de algo mucho más grande", "Eres mi compañera, no solo en los buenos momentos, sino también en los difíciles",
+            "Tu dedicación me inspira", "Eres la primera persona en la que pienso cuando quiero compartir algo", "Me haces sentir que juntos somos imparables",
+            "Me haces sentir que todo es posible", "Eres la razón por la que sonrió incluso en días difíciles", "Me haces sentir que no hay obstáculos insuperables",
+            "Siempre estás dispuesto a escucharme", "Eres mi mayor apoyo", "Tú me motivas a seguir buscando lo mejor de la vida",
+            "Tu visión de la vida me ayuda a aclarar la mía", "Me haces ver el valor en las pequeñas cosas", "Me haces sentir que lo mejor está por venir",
+            "Tu amor me hace crecer", "Nos complementamos en todo", "Tu compañía me da paz", "Me haces sentir que juntos podemos con todo",
+            "Tu sinceridad es algo que valoro mucho", "Me haces sentir importante sin necesidad de palabras", "Eres mi fuerza cuando me siento débil",
+            "Me haces sentir que todo lo que hago vale la pena", "A tu lado, todo tiene más sentido", "Te haces querer con tu autenticidad",
+            "Tu apoyo me hace sentir más seguro", "Lo que más me gusta de ti es que eres tú misma", "La verdad existen miles de razones mas, tqm mugrosa",
+
+        ];
+
+        // Crear la galería de imágenes y mensajes
+        function createGallery() {
+            messages.forEach((msg, index) => {
+                const photoContainer = document.createElement('div');
+                photoContainer.classList.add('photo-container');
+
+                const image = document.createElement('img');
+                image.src = `https://raw.githubusercontent.com/mxnueel/200-razones/main/${index + 1}.jpg`; // URL de la imagen con el número
+                photoContainer.appendChild(image);
+
+                const message = document.createElement('div');
+                message.classList.add('message');
+                message.textContent = `Razón ${index + 1}: ${msg}`; // Agregar el número antes del mensaje
+
+                photoContainer.appendChild(message);
+                gallery.appendChild(photoContainer);
+
+                photoContainer.addEventListener('click', () => {
+                    message.classList.toggle('visible');
+                });
+            });
+        }
+
+        createGallery();
+    </script>
+</body>
+</html>
